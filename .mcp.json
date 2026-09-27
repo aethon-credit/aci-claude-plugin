@@ -1,0 +1,6 @@
+{
+  "aethon-credit-intelligence": {
+    "type": "http",
+    "url": "https://mcp.aethoncredit.com/mcp"
+  }
+}
