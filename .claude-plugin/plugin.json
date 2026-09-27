@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Read ACI Risk Indicators through the Aethon Credit Intelligence connector: the modules, band search across providers, and, on the plans that include them, a provider's indicator and breakdown, side-by-side comparisons and portfolio composites. Reports only what the tools return.",
   "author": {
-    "name": "Aethon Digital FZCO",
+    "name": "Aethon Credit Intelligence",
     "email": "alexkouam@aethoncredit.com"
   },
   "privacyPolicyUrl": "https://aethoncredit.com/privacy/mcp"
