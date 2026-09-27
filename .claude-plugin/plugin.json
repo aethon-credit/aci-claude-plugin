@@ -1,10 +1,16 @@
 {
   "name": "aci-risk-indicators",
+  "displayName": "ACI Risk Indicators",
   "version": "0.1.0",
   "description": "Read ACI Risk Indicators through the Aethon Credit Intelligence connector: the modules, band search across providers, and, on the plans that include them, a provider's indicator and breakdown, side-by-side comparisons and portfolio composites. Reports only what the tools return.",
   "author": {
     "name": "Aethon Credit Intelligence",
     "email": "alexkouam@aethoncredit.com"
   },
-  "privacyPolicyUrl": "https://aethoncredit.com/privacy/mcp"
+  "privacyPolicyUrl": "https://aethoncredit.com/privacy/mcp",
+  "homepage": "https://aethoncredit.com",
+  "documentationUrl": "https://aethoncredit.com/developers",
+  "termsOfServiceUrl": "https://aethoncredit.com/legal#terms",
+  "supportUrl": "https://aethoncredit.com/contact",
+  "repository": "https://github.com/aethon-credit/aci-claude-plugin"
 }
