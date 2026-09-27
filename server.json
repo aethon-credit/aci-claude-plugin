@@ -1,0 +1,16 @@
+{
+  "$schema": "https://registry.modelcontextprotocol.io/schemas/server.json",
+  "name": "io.github.aethon-credit/aci-risk-indicators",
+  "title": "ACI Risk Indicators",
+  "description": "Institutional-grade counterparty risk indicators for digital asset yield providers. 6 read-only tools covering 90+ providers across 9 modules.",
+  "version": "0.1.0",
+  "repository": "https://github.com/aethon-credit/aci-claude-plugin",
+  "website": "https://aethoncredit.com",
+  "icon": "https://raw.githubusercontent.com/aethon-credit/aci-claude-plugin/main/icon.png",
+  "remotes": [
+    {
+      "transportType": "streamable-http",
+      "url": "https://mcp.aethoncredit.com/mcp"
+    }
+  ]
+}
