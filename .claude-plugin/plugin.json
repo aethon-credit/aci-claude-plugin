@@ -12,5 +12,6 @@
   "documentationUrl": "https://aethoncredit.com/developers",
   "termsOfServiceUrl": "https://aethoncredit.com/legal#terms",
   "supportUrl": "https://aethoncredit.com/contact",
-  "repository": "https://github.com/aethon-credit/aci-claude-plugin"
+  "repository": "https://github.com/aethon-credit/aci-claude-plugin",
+  "keywords": ["risk", "credit", "digital assets", "due diligence", "counterparty", "fintech", "wealth management", "compliance", "portfolio"]
 }
