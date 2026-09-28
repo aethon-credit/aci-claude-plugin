@@ -2,7 +2,7 @@
   "name": "aci-risk-indicators",
   "displayName": "ACI Risk Indicators",
   "version": "0.1.0",
-  "description": "Read ACI Risk Indicators through the Aethon Credit Intelligence connector: the modules, band search across providers, and, on the plans that include them, a provider's indicator and breakdown, side-by-side comparisons and portfolio composites. Reports only what the tools return.",
+  "description": "Read ACI Risk Indicators through the Aethon Credit Intelligence connector's seven tools: the modules, band search across providers, and, on the plans that include them, a provider's indicator and breakdown, side-by-side comparisons, portfolio composites, and positions resolved from their instrument identifiers to the providers behind them. Reports only what the tools return.",
   "author": {
     "name": "Aethon Credit Intelligence",
     "email": "alexkouam@aethoncredit.com"
