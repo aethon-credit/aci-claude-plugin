@@ -1,6 +1,6 @@
 ---
 name: aci-risk-indicators
-description: Use when the user asks about Aethon Credit Intelligence (ACI) Risk Indicators for digital asset yield providers and products — which modules exist, which providers sit in a module or risk band, one provider's indicator or breakdown, a side-by-side comparison, a portfolio composite, or a summary of these outputs for a committee. Reports only the fields the ACI connector returns.
+description: Use when the user asks about Aethon Credit Intelligence (ACI) Risk Indicators for digital asset yield providers and products — which modules exist, which providers sit in a module or risk band, one provider's indicator or breakdown, a side-by-side comparison, a portfolio composite, positions matched by their identifiers to the providers behind them, or a summary of these outputs for a committee. Reports only the fields the ACI connector returns.
 ---
 
 # ACI Risk Indicators
@@ -15,7 +15,7 @@ Every tool result carries this classification anchor in `classification_anchor`:
 
 ## The tools
 
-The ACI connector (`https://mcp.aethoncredit.com/mcp`) has six read-only tools.
+The ACI connector (`https://mcp.aethoncredit.com/mcp`) has seven read-only tools.
 
 | Tool | Inputs | What `data` holds |
 |---|---|---|
@@ -25,6 +25,7 @@ The ACI connector (`https://mcp.aethoncredit.com/mcp`) has six read-only tools.
 | `get_provider_detail` | `provider_slug` | `provider_name`, `slug`, `module`, `subtype`, `score`, `risk_band`, `criterion_scores` (per criterion: `label`, `score`, `weight`, `weighted_contribution`, `confidence`, `worst_case_applied`, `applicability`, `bucket`), `hard_caps_applied`, `stress_classification`, `last_certified`, `evidence_summary` |
 | `compare_providers` | `slugs` (2–5) | `providers` (each as in `get_provider_detail`) and `comparison_matrix` (`criteria`, `score`, `risk_band`) |
 | `assess_portfolio_risk` | `allocations`: 2–20 positions of `provider_slug` and `weight`, each weight 0.01–1.0, summing to 1.0 ± 0.01 | `composite_score`, `risk_band`, `per_provider_scores`, `counterparty_concentration_pct`, `custody_concentration_pct`, `regulatory_mix_warning`, `elevated_warnings`, `stress_classification`, `notes` |
+| `resolve_exposures` | `positions`: 1–200, each with `identifiers` (one or more of type `figi`, `ticker_mic`, `lei`, `chain_contract`, `provider_slug` or `dti`) and, optionally, `position_ref` and `module_hint`; `mapping_seq` (optional). An ISIN or a CUSIP refuses its position | `positions` in input order (each: `input_index`, `position_ref`, `outcome`, `reason_code`, `match`, `instrument`, `links`, `scored`, `candidates`), `mapping_seq`, `as_of`, `certification_basis`, `resolved_at`, `correlation_id` |
 
 Every result also carries `disclosure`, `classification_anchor` and `methodology_url`. A result with an indicator value, a band or a breakdown adds `scope_note`. In the text, `score` is the indicator value: call it the ACI Risk Indicator, or the indicator value.
 
@@ -32,7 +33,7 @@ Every result also carries `disclosure`, `classification_anchor` and `methodology
 
 The connector checks the user's plan on every call.
 
-- No sign-in: list_modules, search_providers. The Professional plan adds get_risk_score, get_provider_detail, compare_providers, assess_portfolio_risk.
+- No sign-in: list_modules, search_providers. The Professional plan adds get_risk_score, get_provider_detail, compare_providers, assess_portfolio_risk, resolve_exposures.
 - Below the Professional plan, search_providers results show name, module and risk band only.
 - Accounts on the Sandbox and Analyst plans see what a signed-out caller sees.
 - A tool above the user's plan returns a refusal that names the plan it needs. When the user is not signed in, calling that tool starts the sign-in to their Aethon Credit Intelligence account.
@@ -59,7 +60,11 @@ Call `list_modules` for the module codes, then `search_providers` with `module`,
 
 Call `compare_providers` with 2–5 slugs and lay out `comparison_matrix` as a table: one column per provider, one row per criterion, then the indicator value and the band. Name no provider as stronger, weaker or preferred, and order the columns as the user listed the providers.
 
-### 5. Summary for committee review
+### 5. Positions (Professional and above)
+
+Call `resolve_exposures` with each position's identifiers as the user gave them, and `position_ref` if the user has one. Report the positions in the order returned, each with its `outcome`: for `resolved`, the provider from `scored`, with the indicator value and its band; for any other outcome, the `reason_code`. An identifier matches exactly or not at all, so never guess a match, and never supply an identifier the user did not give.
+
+### 6. Summary for committee review
 
 A structured summary of what the tools returned, and nothing else:
 

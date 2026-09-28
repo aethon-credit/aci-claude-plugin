@@ -24,6 +24,7 @@ No sign-in is needed to connect. The first time Claude calls a tool that needs a
 | `get_provider_detail` | sign-in | — | — | ✓ | ✓ |
 | `compare_providers` | sign-in | — | — | ✓ | ✓ |
 | `assess_portfolio_risk` | sign-in | — | — | ✓ | ✓ |
+| `resolve_exposures` | sign-in | — | — | ✓ | ✓ |
 
 "sign-in" means calling the tool starts the sign-in; "—" means the tool returns a refusal that names the plan it needs. Plans and prices: https://aethoncredit.com/pricing.
 
