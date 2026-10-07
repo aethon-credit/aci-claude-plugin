@@ -1,0 +1,23 @@
+name: Registry status (withdraw / restore)
+on:
+  workflow_dispatch:
+    inputs:
+      version: { description: "Version (e.g. 0.1.0)", required: true }
+      status:  { description: "active | deprecated | deleted", required: true, default: "deleted" }
+      message: { description: "Reason (not allowed with active)", required: false }
+jobs:
+  status:
+    runs-on: ubuntu-latest
+    permissions: { id-token: write, contents: read }
+    steps:
+      - name: Install mcp-publisher v1.8.1 (pinned)
+        run: |
+          curl -L "https://github.com/modelcontextprotocol/registry/releases/download/v1.8.1/mcp-publisher_linux_amd64.tar.gz" | tar xz mcp-publisher
+      - name: Login (GitHub OIDC) and set status
+        run: |
+          ./mcp-publisher login github-oidc
+          if [ "${{ inputs.status }}" = "active" ]; then
+            ./mcp-publisher status --status active io.github.aethon-credit/aci-risk-indicators "${{ inputs.version }}"
+          else
+            ./mcp-publisher status --status "${{ inputs.status }}" --message "${{ inputs.message }}" io.github.aethon-credit/aci-risk-indicators "${{ inputs.version }}"
+          fi
