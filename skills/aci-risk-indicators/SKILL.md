@@ -20,7 +20,7 @@ The ACI connector (`https://mcp.aethoncredit.com/mcp`) has seven read-only tools
 | Tool | Inputs | What `data` holds |
 |---|---|---|
 | `list_modules` | none | per module: `code`, `name`, `description`, `provider_count`, `criteria_count` |
-| `search_providers` | `query`, `module`, `risk_band`, `subtype`, `limit` (1–100, default 25) | per provider: `name`, `module`, `risk_band`; where the plan includes values, also `slug`, `score` and `subtype` |
+| `search_providers` | `query`, `module`, `risk_band`, `subtype`, `limit` (1–100, default 25) | per provider: `name`, `module`; where the plan includes values, also `slug`, `score`, `risk_band` and `subtype` |
 | `get_risk_score` | `provider_slug` or `provider_name` | `provider_name`, `module`, `score`, `risk_band`, `hard_caps_applied`, `confidence_level`, `last_certified`, `methodology_version` |
 | `get_provider_detail` | `provider_slug` | `provider_name`, `slug`, `module`, `subtype`, `score`, `risk_band`, `criterion_scores` (per criterion: `label`, `score`, `weight`, `weighted_contribution`, `confidence`, `worst_case_applied`, `applicability`, `bucket`), `hard_caps_applied`, `stress_classification`, `last_certified`, `evidence_summary` |
 | `compare_providers` | `slugs` (2–5) | `providers` (each as in `get_provider_detail`) and `comparison_matrix` (`criteria`, `score`, `risk_band`) |
@@ -34,7 +34,7 @@ Every result also carries `disclosure`, `classification_anchor` and `methodology
 The connector checks the user's plan on every call.
 
 - No sign-in: list_modules, search_providers. The Professional plan adds get_risk_score, get_provider_detail, compare_providers, assess_portfolio_risk, resolve_exposures.
-- Below the Professional plan, search_providers results show name, module and risk band only.
+- Below the Professional plan, signed out included, search_providers results show name and module only, and the `risk_band` filter returns a refusal that names the Professional plan.
 - Accounts on the Sandbox and Analyst plans see what a signed-out caller sees.
 - A tool above the user's plan returns a refusal that names the plan it needs. When the user is not signed in, calling that tool starts the sign-in to their Aethon Credit Intelligence account.
 
@@ -44,17 +44,17 @@ Use a workflow only where the user's plan includes its tool.
 
 ### 1. First connection
 
-When the user starts, tell them what they can see at their plan, from **Who sees what**. Signed out, that is the list of modules and a search with the risk band of each provider. Do not ask them to sign in up front: calling a tool that needs an account starts the sign-in when they ask for something it returns.
+When the user starts, tell them what they can see at their plan, from **Who sees what**. Signed out, that is the list of modules and a search that returns each provider's name and module. Do not ask them to sign in up front: calling a tool that needs an account starts the sign-in when they ask for something it returns.
 
 ### 2. One provider
 
 - Professional and above: call `get_risk_score` with the slug or the name. If nothing is found, call `search_providers` with the name as `query` and show the matches.
-- Below Professional: call `search_providers` with the name as `query`, and give `name`, `module` and `risk_band` only.
+- Below Professional: call `search_providers` with the name as `query`, and give `name` and `module` only.
 - For the breakdown (Professional and above): call `get_provider_detail`.
 
 ### 3. Screening within a module
 
-Call `list_modules` for the module codes, then `search_providers` with `module`, and `risk_band` if the user names one. Show the rows as returned, in the order returned.
+Call `list_modules` for the module codes, then `search_providers` with `module`, and `risk_band` if the user names one (Professional and above). Show the rows as returned, in the order returned.
 
 ### 4. Side-by-side comparison (Professional and above)
 
@@ -112,12 +112,12 @@ Values are shown as `{{tokens}}`: the tools supply them.
 }
 ```
 
-**"Which stablecoin yield providers have a MEDIUM band?"** → `search_providers` with `module: "stablecoin"`, `risk_band: "MEDIUM"`. Below Professional:
+**"Which providers are in the stablecoin yield module?"** → `search_providers` with `module: "stablecoin"`. Below Professional, signed out included:
 
 ```json
 {
   "data": [
-    { "name": "{{provider_name}}", "module": "stablecoin", "risk_band": "MEDIUM" }
+    { "name": "{{provider_name}}", "module": "stablecoin" }
   ],
   "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
@@ -125,7 +125,7 @@ Values are shown as `{{tokens}}`: the tools supply them.
 }
 ```
 
-On Professional and above, each row adds `slug`, `score` and `subtype`.
+On Professional and above, each row adds `slug`, `score`, `risk_band` and `subtype`, and `risk_band` (e.g. `"MEDIUM"`) filters by band. Below Professional, the `risk_band` filter returns a refusal that names the Professional plan.
 
 **"What is the ACI Risk Indicator for {{provider_name}}?"** → `get_risk_score` (Professional and above)
 
