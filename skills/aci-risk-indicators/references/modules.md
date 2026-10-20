@@ -1,6 +1,6 @@
 # Modules
 
-ACI groups providers into modules. A tool's `module` field and `search_providers`' `module` input use the code; `list_modules` returns the code with its name, a description, and live counts. Quote counts from `list_modules`, never from this file.
+ACI groups providers into modules. A tool's `module` field and `search_providers`' `module` input use the code; `list_modules` returns the code with its name and description, and, where the plan includes them (Professional and above), provider and criteria counts. Quote counts only from `list_modules`, never from this file.
 
 | Code | Name |
 |---|---|
