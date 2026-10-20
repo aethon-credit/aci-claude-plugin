@@ -10,6 +10,6 @@ Every ACI Risk Indicator falls in one of four risk bands. The ranges are indicat
 | HIGH | 0–39 |
 
 - `risk_band` is returned with every indicator. Report it as returned: never derive a band from a value yourself, and never move a provider to a neighbouring band.
-- A band can be returned without a value (a result below the Professional plan). Give the band only.
+- Below the Professional plan, signed out included, no band is returned: `search_providers` gives `name` and `module` only.
 - A `risk_band` of null means the tool returned no band. Report that; never assign one.
 - `hard_caps_applied` lists the hard caps the methodology applied. Report their names as returned, without explaining them.
