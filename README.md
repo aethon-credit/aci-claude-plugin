@@ -18,7 +18,7 @@ No sign-in is needed to connect. The first time Claude calls a tool that needs a
 
 | Tool | No sign-in | Sandbox | Analyst | Professional | Enterprise |
 |---|---|---|---|---|---|
-| `list_modules` | ✓ | ✓ | ✓ | ✓ | ✓ |
+| `list_modules` | code, name and description | code, name and description | code, name and description | ✓, with provider and criteria counts | ✓, with provider and criteria counts |
 | `search_providers` | name and module | name and module | name and module | ✓ | ✓ |
 | `get_risk_score` | sign-in | — | — | ✓ | ✓ |
 | `get_provider_detail` | sign-in | — | — | ✓ | ✓ |

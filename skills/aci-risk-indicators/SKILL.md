@@ -19,7 +19,7 @@ The ACI connector (`https://mcp.aethoncredit.com/mcp`) has seven read-only tools
 
 | Tool | Inputs | What `data` holds |
 |---|---|---|
-| `list_modules` | none | per module: `code`, `name`, `description`, `provider_count`, `criteria_count` |
+| `list_modules` | none | per module: `code`, `name`, `description`; where the plan includes them (Professional and above), also `provider_count` and `criteria_count` |
 | `search_providers` | `query`, `module`, `risk_band`, `subtype`, `limit` (1–100, default 25) | per provider: `name`, `module`; where the plan includes values, also `slug`, `score`, `risk_band` and `subtype` |
 | `get_risk_score` | `provider_slug` or `provider_name` | `provider_name`, `module`, `score`, `risk_band`, `hard_caps_applied`, `confidence_level`, `last_certified`, `methodology_version` |
 | `get_provider_detail` | `provider_slug` | `provider_name`, `slug`, `module`, `subtype`, `score`, `risk_band`, `criterion_scores` (per criterion: `label`, `score`, `weight`, `weighted_contribution`, `confidence`, `worst_case_applied`, `applicability`, `bucket`), `hard_caps_applied`, `stress_classification`, `last_certified`, `evidence_summary` |
@@ -99,18 +99,20 @@ No tool returns history, changes over time or a stress interpretation, so this s
 
 Values are shown as `{{tokens}}`: the tools supply them.
 
-**"Which ACI modules are there?"** → `list_modules`
+**"Which ACI modules are there?"** → `list_modules`. Below Professional, signed out included:
 
 ```json
 {
   "data": [
-    { "code": "{{module_code}}", "name": "{{module_name}}", "description": "{{module_description}}", "provider_count": "{{provider_count}}", "criteria_count": "{{criteria_count}}" }
+    { "code": "{{module_code}}", "name": "{{module_name}}", "description": "{{module_description}}" }
   ],
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
 ```
+
+Where the plan includes them (Professional and above), each module adds `provider_count` and `criteria_count`.
 
 **"Which providers are in the stablecoin yield module?"** → `search_providers` with `module: "stablecoin"`. Below Professional, signed out included:
 
@@ -119,7 +121,7 @@ Values are shown as `{{tokens}}`: the tools supply them.
   "data": [
     { "name": "{{provider_name}}", "module": "stablecoin" }
   ],
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
@@ -142,7 +144,7 @@ On Professional and above, each row adds `slug`, `score`, `risk_band` and `subty
     "methodology_version": "{{methodology_version}}"
   },
   "scope_note": "This response contains only the fields in data. ACI returned no reasons, drivers or explanations for any score, band or criterion beyond those fields.",
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
