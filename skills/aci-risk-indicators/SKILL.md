@@ -106,7 +106,7 @@ Values are shown as `{{tokens}}`: the tools supply them.
   "data": [
     { "code": "{{module_code}}", "name": "{{module_name}}", "description": "{{module_description}}" }
   ],
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
@@ -121,7 +121,7 @@ Where the plan includes them (Professional and above), each module adds `provide
   "data": [
     { "name": "{{provider_name}}", "module": "stablecoin" }
   ],
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
@@ -144,7 +144,7 @@ On Professional and above, each row adds `slug`, `score`, `risk_band` and `subty
     "methodology_version": "{{methodology_version}}"
   },
   "scope_note": "This response contains only the fields in data. ACI returned no reasons, drivers or explanations for any score, band or criterion beyond those fields.",
-  "disclosure": "ACI Risk Indicators: quantitative analytics only. Not investment advice. Not a credit rating.",
+  "disclosure": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "classification_anchor": "ACI Framework v1.0 · aethoncredit.com · Quantitative risk analytics outputs for independent analysis",
   "methodology_url": "https://aethoncredit.com/methodology"
 }
