@@ -1,0 +1,29 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "aci-risk-indicators",
+  "version": "0.1.0",
+  "keywords": ["risk", "digital assets", "due diligence", "counterparty", "wealth management", "portfolio"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "ACI Risk Indicators",
+        "shortDescription": "Digital-asset risk analytics",
+        "longDescription": "ACI Risk Indicators connects to Aethon Credit Intelligence's quantitative risk analytics for digital-asset yield providers, through seven read-only tools. Without signing in, you can list the ACI modules and search the provider catalogue by name and module. On the plans that include them, the tools return a provider's ACI Risk Indicator with its risk band, the criterion-level breakdown, side-by-side comparisons of two to five providers, a computed portfolio composite, and positions matched from their instrument identifiers (FIGI, ticker and venue, LEI, chain and contract address, or DTI) to the providers behind them. Intended users: analysts, investment committees and diligence teams at institutions allocating to digital-asset products. How results work: ACI Risk Indicators are model-derived quantitative analytics outputs for independent analysis. Each result contains only the fields the tools return, with its certification date and methodology version. Indicators are updated at each certification. A portfolio composite is a computed analytical output based on individual provider Risk Indicators. Identifier matching is exact; positions identified by ISIN or CUSIP are returned unresolved. ACI computes risk. You decide how to allocate capital. Methodology: https://aethoncredit.com/methodology",
+        "developerName": "Aethon Credit Intelligence",
+        "category": "Finance",
+        "websiteURL": "https://aethoncredit.com",
+        "supportURL": "https://aethoncredit.com/contact",
+        "privacyPolicyURL": "https://aethoncredit.com/privacy/mcp",
+        "termsOfServiceURL": "https://aethoncredit.com/legal/mcp-use-policy",
+        "defaultPrompt": [
+          "Which ACI modules are there?",
+          "List the providers in ACI's stablecoin yield module.",
+          "Show the ACI Risk Indicator and breakdown for a provider I name."
+        ],
+        "brandColor": "#224466",
+        "brandColorDark": "#4A6D91",
+        "logo": "./assets/logo.png"
+      }
+    }
+  }
+}
