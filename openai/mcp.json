@@ -9,8 +9,7 @@
           "auth": {
             "type": "oauth",
             "client": {
-              "mode": "dcr",
-              "tokenEndpointAuthMethod": "none"
+              "mode": "dcr"
             }
           }
         }
