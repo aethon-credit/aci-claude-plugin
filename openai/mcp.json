@@ -10,7 +10,9 @@
             "type": "oauth",
             "client": {
               "mode": "dcr"
-            }
+            },
+            "authorizationUrl": "https://aethoncredit.com/api/oauth/authorize",
+            "tokenUrl": "https://aethoncredit.com/api/oauth/token"
           }
         }
       }
