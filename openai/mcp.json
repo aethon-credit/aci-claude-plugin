@@ -12,7 +12,8 @@
               "mode": "dcr"
             },
             "authorizationUrl": "https://aethoncredit.com/api/oauth/authorize",
-            "tokenUrl": "https://aethoncredit.com/api/oauth/token"
+            "tokenUrl": "https://aethoncredit.com/api/oauth/token",
+            "registrationUrl": "https://aethoncredit.com/api/oauth/register"
           }
         }
       }
