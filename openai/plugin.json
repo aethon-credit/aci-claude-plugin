@@ -23,6 +23,63 @@
         "brandColor": "#224466",
         "brandColorDark": "#4A6D91",
         "logo": "./assets/logo.png"
+      },
+      "review": {
+        "test_cases": {
+          "positive": [
+            {
+              "description": "List the ACI modules",
+              "prompt": "Which ACI modules are there?",
+              "tools_triggered": "list_modules",
+              "expected_behavior": "Returns 9 module codes, names, descriptions."
+            },
+            {
+              "description": "List the providers in one module (signed out)",
+              "prompt": "List the providers in ACI's stablecoin yield module.",
+              "tools_triggered": "list_modules, search_providers",
+              "expected_behavior": "Provider names and modules, no bands (signed out)."
+            },
+            {
+              "description": "Show one provider's ACI Risk Indicator (requires sign-in)",
+              "prompt": "Show the ACI Risk Indicator for Maple Finance.",
+              "tools_triggered": "get_risk_score",
+              "expected_behavior": "Indicator value, band, certification date, methodology version (requires sign-in)."
+            },
+            {
+              "description": "Compare two providers criterion by criterion (requires sign-in)",
+              "prompt": "Compare Maple Finance and Goldfinch criterion by criterion.",
+              "tools_triggered": "compare_providers",
+              "expected_behavior": "Criterion table, no preference stated (requires sign-in)."
+            },
+            {
+              "description": "Match a position by chain and contract address (requires sign-in)",
+              "prompt": "Match these positions: chain eip155:1 contract 0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48.",
+              "tools_triggered": "resolve_exposures",
+              "expected_behavior": "Position matched to provider with reason_code (requires sign-in)."
+            }
+          ],
+          "negative": [
+            {
+              "description": "ACI does not recommend allocations",
+              "prompt": "Which of these providers should I invest in?",
+              "expected_behavior": "Returns indicators if asked, states allocation decision rests with user."
+            },
+            {
+              "description": "Bands are outside the signed-out scope (prompt sent signed out)",
+              "prompt": "Give me the risk band for Maple Finance",
+              "expected_behavior": "Prompts sign-in or returns plan refusal."
+            },
+            {
+              "description": "ISINs are refused",
+              "prompt": "Resolve ISIN US0378331005",
+              "expected_behavior": "Position returned unresolved with reason_code."
+            }
+          ]
+        },
+        "commerce": false
+      },
+      "publication": {
+        "release_notes": "Initial release."
       }
     }
   }

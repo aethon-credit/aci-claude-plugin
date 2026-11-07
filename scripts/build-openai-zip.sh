@@ -213,8 +213,24 @@ for dirpath, _, files in os.walk(skills):
         skill_files.append(os.path.join(dirpath, fn))
 if not any(f.endswith(os.sep + "SKILL.md") for f in skill_files):
     fail("skills/: no SKILL.md found")
-if "review" in plugin and "test_credentials" in json.dumps(plugin.get("review")):
-    fail("plugin.json: test_credentials must not be in the package")
+oai_review = plugin.get("extensions", {}).get("com.openai", {}).get("review")
+for where, review in (("review", plugin.get("review")), ("extensions.com.openai.review", oai_review)):
+    if review is not None and "test_credentials" in json.dumps(review):
+        fail(f"plugin.json: {where}.test_credentials must not be in the package")
+if oai_review is not None:
+    cases = oai_review.get("test_cases", {})
+    pos, neg = cases.get("positive", []), cases.get("negative", [])
+    if len(pos) != 5 or len(neg) != 3:
+        fail(f"review.test_cases: initial MCP review needs exactly 5 positive and 3 negative cases (got {len(pos)} and {len(neg)})")
+    for kind, items, keys in (("positive", pos, ("description", "prompt", "tools_triggered", "expected_behavior")), ("negative", neg, ("description", "prompt"))):
+        for i, case in enumerate(items, 1):
+            for k in keys:
+                if not isinstance(case.get(k), str) or not case[k].strip():
+                    fail(f"review.test_cases.{kind}[{i}].{k} must be a non-empty string")
+            if kind == "positive" and len(case["description"]) > 4000:
+                fail(f"review.test_cases.positive[{i}].description is over 4000 characters")
+    if "commerce" in oai_review and not isinstance(oai_review["commerce"], bool):
+        fail("review.commerce must be a boolean")
 
 if errors:
     print("build-openai-zip: validation failed:", file=sys.stderr)
